@@ -12,5 +12,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Main activity 수정 테스트 Commit 용
+    //수정확인
 
 }
