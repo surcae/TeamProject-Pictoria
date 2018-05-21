@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1069317858181",
+    "firebase_url": "https://pictoria-737f0.firebaseio.com",
+    "project_id": "pictoria-737f0",
+    "storage_bucket": "pictoria-737f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069317858181:android:0306ee36c524e3dd",
+        "android_client_info": {
+          "package_name": "com.example.surcae_laptop.pictoria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1069317858181-qr8grnah1brp904tsel11is9q805n80c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.surcae_laptop.pictoria",
+            "certificate_hash": "a4af8f5c66e1ee6aee4ceebcc0a0ccdf75b331a0"
+          }
+        },
+        {
+          "client_id": "1069317858181-8a149i0vm241u4vrnssa5180g2lhdbtn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVZsHnKCa7-0-jUmG_9qBTFLpMuFDYTG0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069317858181-8a149i0vm241u4vrnssa5180g2lhdbtn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
