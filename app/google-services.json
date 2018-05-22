@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1069317858181-kngid8mju3bofujbur7sb36ff2c7t00l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.surcae_laptop.pictoria",
+            "certificate_hash": "96e87ac022901c82a577d9fd584a05d30f871a1c"
+          }
+        },
+        {
           "client_id": "1069317858181-qr8grnah1brp904tsel11is9q805n80c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

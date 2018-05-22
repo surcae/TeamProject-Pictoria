@@ -2,10 +2,9 @@ package com.example.surcae_laptop.pictoria;
 
 import android.os.AsyncTask;
 
-public class BackLoading extends AsyncTask {
-
+public class BackLoading extends AsyncTask<Integer, Integer, Integer> {
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected Integer doInBackground(Integer... integers) {
         return null;
     }
 }
