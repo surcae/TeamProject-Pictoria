@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         GridView gridView = (GridView)findViewById(R.id.Grid_view);
 
         gridView.setAdapter(new ImageAdapter(this));
