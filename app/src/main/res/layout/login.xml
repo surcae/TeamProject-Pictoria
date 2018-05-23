@@ -43,13 +43,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:padding="10dp"
-            android:text="Login"
-            />
+            android:text="Login" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,5 +58,10 @@
             android:text="Create Account"
 
             />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signin"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"></com.google.android.gms.common.SignInButton>
     </LinearLayout>
 </ScrollView>
