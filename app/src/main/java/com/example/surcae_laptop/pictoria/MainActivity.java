@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //나중에 구현할 부분
                 //클릭시 이미지 팝업?
+                /*
+                Top, BottomBar를 통해서 프래그먼트를 나누고 각 프래그먼트당 작동할 .java 파일이 필요함
+                 */
 
             }
         });

@@ -25,10 +25,30 @@ public class LoadingActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar)findViewById(R.id.progress);
 
-        if(!isOnline()) {
-            System.out.println("인터넷 연결 확인 요망");
-            return;
-        }
+
+        // 인터넷 확인
+        handler = new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                if(!isOnline()) {
+                    System.out.println("인터넷 연결 확인 요망");
+                    return;
+                }
+
+
+            }
+        }, 5000);
+
+        // 파이어베이스 초기화 및 할당 (아직 테스트 중)
+        handler = new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                // 초기화 수행
+                FireBaseClass.getInstance().Initializer();
+            }
+        }, 2000);
+
+        // 다음 엑티비티로
         handler = new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
@@ -36,10 +56,10 @@ public class LoadingActivity extends AppCompatActivity {
                 LoadingActivity.this.startActivity(mainIntent);
                 LoadingActivity.this.finish();
             }
-        }, 5000);
+        }, 1000);
     }
 
-    public static boolean isOnline() {
+    public static boolean isOnline() { // 연결 확인 메소드
         CheckInternet cc= new CheckInternet("http://clients3.google.com/generate_204");
         cc.start();
         try{

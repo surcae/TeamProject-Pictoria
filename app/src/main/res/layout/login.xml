@@ -49,19 +49,20 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:padding="10dp"
-            android:text="Login" />
-        <TextView
+            android:text="LOGIN" />
+
+        <Button
+            android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="Create Account"
-
-            />
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="CREATE ACCOUNT" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/signin"
-            android:layout_width="149dp"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"></com.google.android.gms.common.SignInButton>
     </LinearLayout>
 </ScrollView>
