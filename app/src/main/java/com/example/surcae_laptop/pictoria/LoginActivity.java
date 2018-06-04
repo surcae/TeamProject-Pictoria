@@ -76,7 +76,7 @@ public class LoginActivity extends FragmentActivity {
 
         loginbutton = (Button) findViewById(R.id.button);     // 로그인 (일반 로그인)
         GoogleLoginbutton = (SignInButton) findViewById(R.id.signin);
-        createbutton = (Button) findViewById(R.id.button2);   // 회원가입 프래그먼트 ㄱㄱ
+        createbutton = (Button) findViewById(R.id.createButton);   // 회원가입 프래그먼트 ㄱㄱ
 
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +117,8 @@ public class LoginActivity extends FragmentActivity {
     private void CreateUser() {
 
         // 이 부분은 따로 구현
-        // 프래그먼트 변경
+        // 프래그먼트 변경 (SignUp)
+
 
     }
 

@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/night">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="150dp"
+        android:orientation="vertical"
         android:paddingLeft="25dp"
-        android:paddingRight="25dp">
+        android:paddingRight="25dp"
+        android:paddingTop="150dp">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_marginTop="10dp">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/email_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
@@ -28,13 +29,27 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
-            >
+            android:layout_marginTop="10dp">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/password_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/password2_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
@@ -43,26 +58,11 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/signup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:text="LOGIN" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Sign up" />
 
-        <Button
-            android:id="@+id/createButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:text="CREATE ACCOUNT" />
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/signin"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"></com.google.android.gms.common.SignInButton>
     </LinearLayout>
 </ScrollView>
