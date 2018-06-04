@@ -39,7 +39,20 @@ public class LoginActivity extends FragmentActivity {
     private FragmentManager fragmentManager;
 
     @Override
+    protected void onPause(){
+        super.onPause();
+        // 액티비티 도중 멈췄을때...
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        // 다시 살렸을때...
+
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         // 활동을 초기화할 때 사용자가 현재 로그인되어 있는지 확인합니다.
@@ -177,6 +190,7 @@ public class LoginActivity extends FragmentActivity {
                                 }
                             });
 
+                    // 아마 성공해서 계정 연동도 인증되면 여기는 안 들어올꺼임
                     String personName = acct.getDisplayName();
                     String personEmail = acct.getEmail();
                     String personId = acct.getId();
@@ -189,6 +203,7 @@ public class LoginActivity extends FragmentActivity {
                     Log.e("GoogleLogin", "personEmail=" + personEmail);
                     Log.e("GoogleLogin", "personId=" + personId);
                     Log.e("GoogleLogin", "tokenKey=" + tokenKey);
+
                 } else {
                     Log.e("GoogleLogin", "login fail cause=" + result.getStatus().getStatusMessage());
                     // 로그인 실패 했을때

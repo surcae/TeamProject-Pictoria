@@ -7,7 +7,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 public class MainActivity extends AppCompatActivity {
-
+    /*
+    여기 들어왔으면 이제 FirebaseUser 데이터에 사용자 데이터가 들어와있고
+    이 사용자를 이용해서 들고 볶고 썰고 할 수 있다.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +32,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
-
-
-
+    @Override public void onBackPressed() { // 백버튼 막음
+        //super.onBackPressed();
+    }
 }
