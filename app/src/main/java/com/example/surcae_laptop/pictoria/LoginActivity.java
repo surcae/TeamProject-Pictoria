@@ -1,9 +1,11 @@
 package com.example.surcae_laptop.pictoria;
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,11 +33,10 @@ import static com.google.android.gms.auth.api.credentials.CredentialPickerConfig
 
 public class LoginActivity extends FragmentActivity {
     private static final String TAG = "LoginActivity";
-    private EditText email;
+    private EditText  email;
     private EditText password;
     private Button loginbutton, createbutton;
     private SignInButton GoogleLoginbutton;
-    private FragmentManager fragmentManager;
 
     @Override
     protected void onPause(){
@@ -118,7 +119,11 @@ public class LoginActivity extends FragmentActivity {
 
         // 이 부분은 따로 구현
         // 프래그먼트 변경 (SignUp)
-
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.loginlayout, new Signup());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
     }
 
