@@ -3,7 +3,6 @@ package com.example.surcae_laptop.pictoria;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -87,6 +86,12 @@ public class LoginActivity extends FragmentActivity {
                 //startActivityForResult(signInIntent, RC_SIGN_IN);
                 //Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(FireBaseClass.getInstance().getmGoogleApiClient());
                 //startActivityForResult(signInIntent, SIGN_IN);
+                // 빈 공간 검사 (하나라도 비었으면 안 만들어짐)
+                if (email.getText().equals(""))
+                    return;
+
+                if (password.getText().equals(""))
+                    return;
             }
         });
 
@@ -110,12 +115,6 @@ public class LoginActivity extends FragmentActivity {
     }
 
     private void CreateUser() {
-        // 빈 공간 검사 (하나라도 비었으면 안 만들어짐)
-        if (email.getText().equals(""))
-            return;
-
-        if (password.getText().equals(""))
-            return;
 
         // 이 부분은 따로 구현
         // 프래그먼트 변경
