@@ -44,6 +44,7 @@ public class LoadingActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // 초기화 수행
+                
                 FireBaseClass.getInstance().Initializer();
             }
         }, 2000);
