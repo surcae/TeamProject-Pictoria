@@ -88,6 +88,7 @@ public class LoginActivity extends FragmentActivity {
                 //Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(FireBaseClass.getInstance().getmGoogleApiClient());
                 //startActivityForResult(signInIntent, SIGN_IN);
                 // 빈 공간 검사 (하나라도 비었으면 안 만들어짐)
+
                 if (email.getText().equals(""))
                     return;
 
@@ -107,7 +108,7 @@ public class LoginActivity extends FragmentActivity {
         GoogleLoginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signOut();
+                signOut(); // 계정 로그아웃 후 (미리 로그인 된 계정 비활성화용, 바로 구글 로그인 시작)
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(FireBaseClass.getInstance().getmGoogleApiClient());
                 startActivityForResult(signInIntent, SIGN_IN);
 
@@ -116,15 +117,12 @@ public class LoginActivity extends FragmentActivity {
     }
 
     private void CreateUser() {
-
-        // 이 부분은 따로 구현
         // 프래그먼트 변경 (SignUp)
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.loginlayout, new Signup());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
 
     public void signOut() {
@@ -179,7 +177,6 @@ public class LoginActivity extends FragmentActivity {
                                     if (!task.isSuccessful()) {
                                         Log.v("알림", "!task.isSuccessful()");
                                         Toast.makeText(LoginActivity.this, "인증에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-                                        return;
                                     } else {
                                         Log.v("알림", "task.isSuccessful()");
                                         FirebaseUser user = FireBaseClass.getInstance().getmAuth().getCurrentUser();
@@ -195,7 +192,7 @@ public class LoginActivity extends FragmentActivity {
                                 }
                             });
 
-                    // 아마 성공해서 계정 연동도 인증되면 여기는 안 들어올꺼임
+                    // 로그인 성공해서 계정 연동이 되면 여기는 들어오지 않는다.
                     String personName = acct.getDisplayName();
                     String personEmail = acct.getEmail();
                     String personId = acct.getId();
@@ -218,7 +215,7 @@ public class LoginActivity extends FragmentActivity {
             }
         } else {
             // 다른 리퀘스트 코드일 때 이리로 온다.
-
+            // if(requestCode == 1){}
         }
     }
 }
