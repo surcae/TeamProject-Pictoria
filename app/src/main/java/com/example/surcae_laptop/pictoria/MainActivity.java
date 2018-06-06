@@ -1,6 +1,6 @@
 package com.example.surcae_laptop.pictoria;
 
-import android.annotation.SuppressLint;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
     /*
@@ -19,11 +19,11 @@ public class MainActivity extends AppCompatActivity {
      */
 
     //main에서 구현할 버튼들 셋팅
-    private Button settting;
-    private Button home;
-    private Button search;
-    private Button favorite;
-    private Button list;
+    private ImageButton settting;
+    private ImageButton home;
+    private ImageButton search;
+    private ImageButton favorite;
+    private ImageButton list;
 
     //Context instance, setter, getter 생성
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    @SuppressLint("WrongViewCast")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivity.setContext(this);
 
-        settting = (Button) findViewById(R.id.button_setting);
-        home = (Button) findViewById(R.id.button_home);
-        favorite = (Button) findViewById(R.id.button_favorite);
-        search = (Button) findViewById(R.id.button_search);
-        list = (Button) findViewById(R.id.button_list);
+        settting = (ImageButton) findViewById(R.id.button_setting);
+        home = (ImageButton) findViewById(R.id.button_home);
+        favorite = (ImageButton) findViewById(R.id.button_favorite);
+        search = (ImageButton) findViewById(R.id.button_search);
+        list = (ImageButton) findViewById(R.id.button_list);
 
 
         recyclerView =  (RecyclerView) findViewById(R.id.r_main);
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     //이미지 가져올 메소드 설정
     private Bitmap[] setBitmaps() {
         //sample bitmap 설정
-        Bitmap[] bitmaps = new Bitmap[7];
+        Bitmap[] bitmaps = new Bitmap[10];
         bitmaps[0]= BitmapFactory.decodeResource(getResources(),R.drawable.night);
         bitmaps[1]= BitmapFactory.decodeResource(getResources(),R.drawable.windmill);
         bitmaps[2]= BitmapFactory.decodeResource(getResources(),R.drawable.sun);
@@ -119,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
         bitmaps[4]= BitmapFactory.decodeResource(getResources(),R.drawable.sun);
         bitmaps[5]= BitmapFactory.decodeResource(getResources(),R.drawable.windmill);
         bitmaps[6]= BitmapFactory.decodeResource(getResources(),R.drawable.morningglow);
+        bitmaps[7]= BitmapFactory.decodeResource(getResources(),R.drawable.sun);
+        bitmaps[8]= BitmapFactory.decodeResource(getResources(),R.drawable.windmill);
+        bitmaps[9]= BitmapFactory.decodeResource(getResources(),R.drawable.morningglow);
         return bitmaps;
     }
 

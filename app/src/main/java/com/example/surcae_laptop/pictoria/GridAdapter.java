@@ -20,7 +20,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridHolder> {
     @NonNull
     @Override
     public GridHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(MainActivity.getContext()).inflate(R.layout.activity_main,parent,false);
+        View v = LayoutInflater.from(MainActivity.getContext()).inflate(R.layout.grid_view,parent,false);
         return new GridHolder(v);
     }
 
