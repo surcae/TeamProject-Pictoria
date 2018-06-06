@@ -13,6 +13,10 @@
 
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
@@ -24,10 +28,6 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:screenOrientation="portrait">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
