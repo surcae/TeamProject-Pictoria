@@ -1,9 +1,11 @@
 package com.example.surcae_laptop.pictoria;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -35,14 +37,24 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivity.setContext(this);
 
-
         recyclerView =  (RecyclerView) findViewById(R.id.r_main);
-
-
+        Bitmap[] bitmaps=setBitmaps();
+        //어뎁터 설정
+        recyclerView.setAdapter(new GridAdapter(bitmaps));
+        //우선 col2개로 설정
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
 
     }
+
+    //이미지 가져올 메소드 설정
+    private Bitmap[] setBitmaps() {
+    }
+
     @Override public void onBackPressed() { // 백버튼 막음
         //super.onBackPressed();
     }
+
+
 }
