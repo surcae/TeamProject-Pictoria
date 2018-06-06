@@ -13,6 +13,10 @@ public class GridAdapter extends RecyclerView.Adapter<GridHolder> {
 
     Bitmap[] bitmaps;
 
+    public GridAdapter(Bitmap[] bitmaps) {
+        this.bitmaps=bitmaps;
+    }
+
     @NonNull
     @Override
     public GridHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
