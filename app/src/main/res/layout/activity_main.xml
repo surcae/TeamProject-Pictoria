@@ -51,17 +51,11 @@
 
     </LinearLayout>
 
-    <GridView
-        android:id="@+id/Grid_view"
+    <android.support.v7.widget.RecyclerView
+
+        android:id="@+id/r_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:columnWidth="90dp"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp"></GridView>
+        android:layout_height="wrap_content"
+        />
 
 </RelativeLayout>
