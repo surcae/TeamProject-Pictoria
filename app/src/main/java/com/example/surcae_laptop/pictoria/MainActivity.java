@@ -58,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView =  (RecyclerView) findViewById(R.id.r_main);
         Bitmap[] bitmaps=setBitmaps();
-        //어뎁터 설정
-        recyclerView.setAdapter(new GridAdapter(bitmaps));
         //우선 col2개로 설정
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        //어뎁터 설정
+        recyclerView.setAdapter(new GridAdapter(bitmaps));
 
 
         settting.setOnClickListener(new View.OnClickListener() {
