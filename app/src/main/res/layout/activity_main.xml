@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/cardview_dark_background"
     android:orientation="vertical"
     tools:contentDescription="@null"
@@ -16,49 +16,24 @@
         android:orientation="horizontal"
         android:gravity="center"
         >
-        <ImageButton
-            android:id="@+id/button_home"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/round_home_black_18dp"/>
 
-        <ImageButton
-            android:id="@+id/button_search"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/round_search_black_18dp"/>
+        <android.support.v7.widget.RecyclerView
 
-        <ImageButton
-            android:id="@+id/button_favorite"
-            android:layout_width="wrap_content"
+            android:id="@+id/r_main"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/round_favorite_black_18dp"/>
-
-        <ImageButton
-            android:id="@+id/button_list"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/round_list_black_18dp"/>
-
-        <ImageButton
-            android:id="@+id/button_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/round_delete_black_18dp"/>
-
-        <ImageButton
-            android:id="@+id/button_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/round_settings_black_18dp"/>
-
+            />
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-
-        android:id="@+id/r_main"
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="50dp"
+        android:layout_gravity="start"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        app:elevation="16dp"
+        app:menu="@menu/navi_menu" >
 
-</LinearLayout>
+    </android.support.design.widget.BottomNavigationView>
+
+</RelativeLayout>
