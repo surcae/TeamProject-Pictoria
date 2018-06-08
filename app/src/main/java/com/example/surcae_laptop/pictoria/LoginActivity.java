@@ -89,6 +89,10 @@ public class LoginActivity extends FragmentActivity {
                 //startActivityForResult(signInIntent, SIGN_IN);
                 // 빈 공간 검사 (하나라도 비었으면 안 만들어짐)
 
+                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
+
+
                 if (email.getText().equals(""))
                     return;
 

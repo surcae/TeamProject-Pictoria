@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
-import android.widget.ImageButton;
+import android.view.MenuItem;
+
 
 public class MainActivity extends AppCompatActivity {
     /*
@@ -19,12 +22,6 @@ public class MainActivity extends AppCompatActivity {
     이 사용자를 이용해서 들고 볶고 썰고 할 수 있다.
      */
 
-    //main에서 구현할 버튼들 셋팅
-    private ImageButton settting;
-    private ImageButton home;
-    private ImageButton search;
-    private ImageButton favorite;
-    private ImageButton list;
 
     //Context instance, setter, getter 생성
 
@@ -43,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +54,37 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         //어뎁터 설정
         recyclerView.setAdapter(new GridAdapter(bitmaps));
+
+        bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navi);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.favorite:
+                        replaceFragment(FavoriteFragment.newInstance());
+                        return true;
+                    //mainactivty로 돌아간다
+                    case R.id.home:
+                        Intent intent = new Intent();
+                        intent.setClass(getContext(),MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.setting:
+                        replaceFragment(SettingFragment.newInstance());
+                        return true;
+                }
+                return false;
+            }
+
+            //Fragment instance 받아서 replace
+            private void replaceFragment(Fragment fragment) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.container,fragment).commit();
+            }
+
+        });
 
     }
 
@@ -82,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
     @Override public void onBackPressed(){ // 백버튼 막음
         //super.onBackPressed();
     }
-
-
 
 
 
