@@ -16,8 +16,11 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.miguelcatalan.materialsearchview.SearchAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         //어뎁터 설정
         recyclerView.setAdapter(new GridAdapter(bitmaps));
 
+
+
         bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navi);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -91,28 +96,44 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        //search bar
+
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         materialSearchView=(MaterialSearchView)findViewById(R.id.search_view);
-        materialSearchView.closeSearch();
-
         materialSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                //Create Filtering
+                // filter recycler view when query submitted
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Text에 따라 실시간으로 따라가는부분 구현 가능
+                // filter recycler view when text is changed
                 return false;
             }
         });
 
+        materialSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+
+            }
+        });
+
+        materialSearchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+        
     }
 
     //이미지 가져올 메소드 설정
@@ -144,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
 
 
 }
