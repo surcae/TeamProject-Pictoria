@@ -13,7 +13,6 @@
 
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-
         </activity>
 
         <activity android:name=".LoginActivity"

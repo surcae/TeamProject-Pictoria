@@ -13,7 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     //BottomNavigationview 작업 준비
     BottomNavigationView bottomNavigationView;
 
+    MaterialSearchView materialSearchView;
+    Toolbar toolbar;
 
     public static Context getContext() {
         return context;
@@ -85,6 +91,27 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        //search bar
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        materialSearchView=(MaterialSearchView)findViewById(R.id.search_view);
+        materialSearchView.closeSearch();
+
+        materialSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                //Create Filtering
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Text에 따라 실시간으로 따라가는부분 구현 가능
+                return false;
+            }
+        });
 
     }
 
@@ -109,7 +136,14 @@ public class MainActivity extends AppCompatActivity {
         //super.onBackPressed();
     }
 
+    //만든 menu 가져오기
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.search_menu,menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        materialSearchView.setMenuItem(item);
 
+        return true;
+    }
 
 
 }
