@@ -3,7 +3,16 @@ package com.example.surcae_laptop.pictoria;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.services.customsearch.Customsearch;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -25,20 +34,83 @@ import static android.content.ContentValues.TAG;
  */
 
 public class ImageSearchEngine extends AsyncTask<URL, Integer, String> {
-    @Override
+    Integer responseCode = null;
+    String responseMessage = "";
+    String result = "";
+    HttpURLConnection conn = null;
+    Customsearch customsearch= null;
     // Callback from Execute() of MainActivity.
-    protected String doInBackground(URL... urls) {
-        URL url = urls[0];
-        HttpURLConnection conn = null;
+    @Override
+    protected void onPreExecute(){
 
+    }
+
+    protected String doInBackground(URL... urls) {
+        HttpTransport httpTransport;
+        JsonFactory jsonFactory;
+        HttpRequestInitializer httpRequestInitializer;
+
+        try{
+            //customsearch = new Customsearch(new NetHttpTransport(), new JsonFactory(), new HttpRequestInitializer()
+            {
+                
+            }
+            //);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        URL url = urls[0];
         try {
             conn = (HttpURLConnection) url.openConnection();
         } catch (IOException e) {
             Log.e(TAG, "Http connection ERROR " + e.toString());
         }
-        return null;
-    }
-    protected void onPreExecute(){
 
+        try {
+            responseCode = conn.getResponseCode();
+            responseMessage = conn.getResponseMessage();
+        } catch (IOException e) {
+            Log.e(TAG, "Http getting response code ERROR " + e.toString());
+        }
+
+        Log.d(TAG, "Http response code =" + responseCode + " message=" + responseMessage);
+
+        try {
+            if (responseCode == 200) {
+
+                // response OK
+                BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while ((line = rd.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                rd.close();
+
+                conn.disconnect();
+
+                result = sb.toString();
+
+                Log.d(TAG, "result=" + result);
+
+                return result;
+
+            } else {
+
+                // response problem
+
+                String errorMsg = "Http ERROR response " + responseMessage + "\n" + "Make sure to replace in code your own Google API key and Search Engine ID";
+                Log.e(TAG, errorMsg);
+                result = errorMsg;
+                return result;
+
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Http Response ERROR " + e.toString());
+        }
+
+        return null;
     }
 }

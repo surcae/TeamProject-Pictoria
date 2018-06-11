@@ -125,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Log.d("MainActivity", "Url = "+  urlString);
 
-
+                imageSearchEngine = new ImageSearchEngine();
+                imageSearchEngine.execute(url);
                 return true;
             }
 
