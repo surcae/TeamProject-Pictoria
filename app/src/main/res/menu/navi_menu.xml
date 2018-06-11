@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/favorite"
+        android:id="@+id/Profile"
         android:enabled="true"
-        android:icon="@drawable/round_favorite_black_18dp"
+        android:icon="@drawable/round_profile_black_18dp"
         android:title="Favorite"
         app:showAsAction="ifRoom"/>
     <item
