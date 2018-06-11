@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.favorite:
-                        replaceFragment(FavoriteFragment.newInstance());
+                    case R.id.Profile:
+                        replaceFragment(ProfileFragment.newInstance());
                         return true;
                     //mainactivty로 돌아간다
                     case R.id.home:

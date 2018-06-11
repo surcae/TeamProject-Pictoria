@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/favorite"
+        android:id="@+id/Profile"
         android:enabled="true"
-        android:icon="@drawable/round_favorite_black_18dp"
-        android:title="Favorite"
+        android:icon="@drawable/round_profile_black_18dp"
+        android:title="Profile"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/home"

@@ -7,10 +7,12 @@
     android:clickable="true"
     >
 
-    <TextView
+    <ListView
+        android:id="@+id/setting_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="setting fragment position"
-        />
+        android:layout_height="match_parent">
+
+
+    </ListView>
 
 </FrameLayout>

@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 
 /* Favorite 구현 예정 */
 
-public class FavoriteFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
-    public static FavoriteFragment newInstance(){
-        return new FavoriteFragment();
+    public static ProfileFragment newInstance(){
+        return new ProfileFragment();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         //ui 만들어서 view 리턴
-        return inflater.inflate(R.layout.fragement_favorite,container,false);
+        return inflater.inflate(R.layout.fragment_profile_expanded,container,false);
     }
 }
