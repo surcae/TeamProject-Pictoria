@@ -6,7 +6,7 @@
         android:id="@+id/Profile"
         android:enabled="true"
         android:icon="@drawable/round_profile_black_18dp"
-        android:title="Favorite"
+        android:title="Profile"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/home"
