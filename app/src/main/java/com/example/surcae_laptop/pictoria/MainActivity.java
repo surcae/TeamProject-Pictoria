@@ -1,6 +1,5 @@
 package com.example.surcae_laptop.pictoria;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,57 +13,60 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.miguelcatalan.materialsearchview.SearchAdapter;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     /*
     여기 들어왔으면 이제 FirebaseUser 데이터에 사용자 데이터가 들어와있고
     이 사용자를 이용해서 들고 볶고 썰고 할 수 있다.
      */
-
-
     //Context instance, setter, getter 생성
-
+    // 구글 검색용 엔진 ID
+    private final String googleSearchEngineID = "001547157015624447273:cgd3p_evf_o";
+    // API 이용하기 위한 키
+    private final String APIKey = "AIzaSyDr2FU22oAzmXgljzfpW5wn1khjWPOsjf4";
     private static Context context;
+    private ImageSearchEngine imageSearchEngine;
     RecyclerView recyclerView;
     //BottomNavigationview 작업 준비
     BottomNavigationView bottomNavigationView;
-
     MaterialSearchView materialSearchView;
     Toolbar toolbar;
 
     public static Context getContext() {
         return context;
     }
-
     public static void setContext(Context context) {
         MainActivity.context = context;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         MainActivity.setContext(this);
+
+        // 이미지 서치 인스턴스 생성
+        imageSearchEngine = new ImageSearchEngine();
 
         recyclerView =  (RecyclerView) findViewById(R.id.r_main);
         Bitmap[] bitmaps=setBitmaps();
+
         //우선 col2개로 설정
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
+
         //어뎁터 설정
         recyclerView.setAdapter(new GridAdapter(bitmaps));
-
-
 
         bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navi);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -105,13 +107,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // filter recycler view when query submitted
-                return false;
+                final String searchString = query;
+                Log.d("Search Engine", "Searching for : " + searchString);
+
+                // 서치 Submit시 키보드 숨김
+                InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                final String searchStringNoSpaces = searchString.replace(" ", "+");
+                String urlString = "https://www.googleapis.com/customsearch/v1?q=" + searchStringNoSpaces + "&key=" + APIKey + "&cx=" + googleSearchEngineID + "&alt=json";
+                URL url = null;
+
+                try {
+                    url = new URL(urlString); // URL 파싱
+                } catch (MalformedURLException e) {
+                    Log.e("MainActivity", "ERROR converting String to URL " + e.toString());
+                }
+                Log.d("MainActivity", "Url = "+  urlString);
+
+
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 // filter recycler view when text is changed
-                return false;
+                return true;
             }
         });
 
