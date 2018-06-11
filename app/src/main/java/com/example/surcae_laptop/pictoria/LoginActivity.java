@@ -5,15 +5,12 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.firebase.client.annotations.Nullable;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.SignInButton;
@@ -59,7 +56,7 @@ public class LoginActivity extends FragmentActivity {
         try {
             FirebaseUser currentUser = FireBaseClass.getInstance().getmAuth().getCurrentUser();
         } catch (NullPointerException e) {
-            Log.e("비로그인 상태", "비로그인 상태");
+            Log.e("비로그인 상태", "비로그인 상태! 이게 좋은 상태");
         }
     }
 
@@ -82,22 +79,32 @@ public class LoginActivity extends FragmentActivity {
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 로그인 성공 및 다음 엑티비티로 이동, 이동할 때 현재 할당된 권한, 계정 정보를 가지고 처음 초기화 정보와 함께 인텐트하여 넘겨줌
-                //Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                //startActivityForResult(signInIntent, RC_SIGN_IN);
-                //Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(FireBaseClass.getInstance().getmGoogleApiClient());
-                //startActivityForResult(signInIntent, SIGN_IN);
                 // 빈 공간 검사 (하나라도 비었으면 안 만들어짐)
-
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
-
-
-                if (email.getText().equals(""))
+                if (email.getText().toString().equals(""))
                     return;
 
-                if (password.getText().equals(""))
+                if (password.getText().toString().equals(""))
                     return;
+
+                FireBaseClass.getInstance().getmAuth().signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "signInWithEmail:success");
+                                    FirebaseUser user = FireBaseClass.getInstance().getmAuth().getCurrentUser();
+                                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(getApplicationContext(), "로그인 실패",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                                // ...
+                            }
+                        });
             }
         });
 
@@ -115,18 +122,14 @@ public class LoginActivity extends FragmentActivity {
                 signOut(); // 계정 로그아웃 후 (미리 로그인 된 계정 비활성화용, 바로 구글 로그인 시작)
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(FireBaseClass.getInstance().getmGoogleApiClient());
                 startActivityForResult(signInIntent, SIGN_IN);
-
             }
         });
     }
 
     private void CreateUser() {
-        // 프래그먼트 변경 (SignUp)
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.loginlayout, new Signup());
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        // 인탠트 생성 및 엑티비티 변경
+        Intent intent = new Intent(this, Signup.class);
+        startActivity(intent);
     }
 
     public void signOut() {
