@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     /*
@@ -104,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         materialSearchView=(MaterialSearchView)findViewById(R.id.search_view);
         materialSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -195,8 +197,30 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        
+
+        //voice search 구현
+        materialSearchView.setVoiceSearch(true);
+
+
+
     }
+
+        //voice search
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
+                ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                if (matches != null && matches.size() > 0) {
+                    String searchWrd = matches.get(0);
+                    if (!TextUtils.isEmpty(searchWrd)) {
+                        materialSearchView.setQuery(searchWrd, false);
+                    }
+                }
+                return;
+            }
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+
 
     //이미지 가져올 메소드 설정
     private Bitmap[] setBitmaps() {
