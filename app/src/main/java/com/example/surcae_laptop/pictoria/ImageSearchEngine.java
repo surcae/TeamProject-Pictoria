@@ -1,6 +1,9 @@
 package com.example.surcae_laptop.pictoria;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +39,7 @@ public class ImageSearchEngine extends AsyncTask<URL, Void, Boolean> {
     }
 
     protected Boolean doInBackground(URL... urls) {
+        GridManager.getInstance().isSearchStart = false;
         StringBuffer buffer = null;
         try {
             InputStream is = urls[0].openConnection().getInputStream();
@@ -52,13 +56,25 @@ public class ImageSearchEngine extends AsyncTask<URL, Void, Boolean> {
         String jsonString = buffer.toString();
 
         try {
+            String[] temp = new String[10];
             JSONObject jsonData = new JSONObject(jsonString);
-            JSONObject jsonObject = jsonData.getJSONArray("items").getJSONObject(0);
-            System.out.println(jsonObject.optString("link"));
+            for(int i = 0; i < jsonData.getJSONArray("items").length(); ++i) {
+                JSONObject jsonObject = jsonData.getJSONArray("items").getJSONObject(i);
+                System.out.println(jsonObject.optString("link"));
+                temp[i] = jsonObject.optString("link");
+            }
+            GridManager.getInstance().setURLStore(temp);
+            GridManager.getInstance().isSearchStart = true;
+            //Bitmap[] bitmaps = new Bitmap[10];
         } catch (JSONException jse){
             jse.printStackTrace();
         }
+        publishProgress();
         return true;
+    }
+
+    private void SetBitMapWithPicaso(){
+        //Picasso.get().load()
     }
 }
 

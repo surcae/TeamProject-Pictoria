@@ -164,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
         //voice search 구현
         materialSearchView.setVoiceSearch(true);
 
-
-
     }
 
         //voice search

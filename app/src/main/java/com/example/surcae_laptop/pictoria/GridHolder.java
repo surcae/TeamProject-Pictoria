@@ -12,21 +12,23 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import static android.support.v4.content.ContextCompat.startActivity;
 
 public class GridHolder extends RecyclerView.ViewHolder{
 
     ImageView imageView;
     ImageView imageView_pop;
-
     TextView textView;
-
     Dialog dialog;
+    int curIndex;
 
     private final Context context;
 
-    public GridHolder(final View itemView) {
+    public GridHolder(final View itemView, int index) {
         super(itemView);
+        curIndex = index;
         context=itemView.getContext();
 
         imageView=itemView.findViewById(R.id.s_image);
@@ -45,7 +47,9 @@ public class GridHolder extends RecyclerView.ViewHolder{
         public void customdialog(View v) {
 
             imageView_pop=(ImageView) v.findViewById(R.id.image_pop);
-
+            if(GridManager.getInstance().isSearchStart == true) {
+                //Picasso.get().load(GridManager.getInstance().getUrlWithPos(curIndex)).into(imageView_pop);
+            }
             dialog= new Dialog(MainActivity.getContext());
             dialog.setContentView(R.layout.popup);
             dialog.show();
