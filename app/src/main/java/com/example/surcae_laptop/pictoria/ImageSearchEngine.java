@@ -65,6 +65,7 @@ public class ImageSearchEngine extends AsyncTask<URL, Void, Boolean> {
             }
             GridManager.getInstance().setURLStore(temp);
             GridManager.getInstance().isSearchStart = true;
+
             //Bitmap[] bitmaps = new Bitmap[10];
         } catch (JSONException jse){
             jse.printStackTrace();
@@ -73,6 +74,12 @@ public class ImageSearchEngine extends AsyncTask<URL, Void, Boolean> {
         return true;
     }
 
+
+    @Override
+    protected void onPostExecute(Boolean result) {
+        super.onPostExecute(result);
+        GridManager.getInstance().getGridAdapter().notifyDataSetChanged();
+    }
     private void SetBitMapWithPicaso(){
         //Picasso.get().load()
     }

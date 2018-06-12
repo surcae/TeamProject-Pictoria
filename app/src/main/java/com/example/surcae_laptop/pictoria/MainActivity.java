@@ -70,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
         //어뎁터 설정
-        recyclerView.setAdapter(new GridAdapter(bitmaps));
+        GridAdapter gridAdapter = new GridAdapter(bitmaps);
+        GridManager.getInstance().setGridAdapter(gridAdapter);
+        recyclerView.setAdapter(gridAdapter);
+
 
         bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navi);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

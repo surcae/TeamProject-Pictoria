@@ -33,4 +33,8 @@ public class GridManager {
         }
         return true;
     }
+
+    public void setGridAdapter(GridAdapter _p){
+        this.gridAdapter = _p;
+    }
 }
