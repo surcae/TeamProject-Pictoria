@@ -187,7 +187,7 @@ public class LoginActivity extends FragmentActivity {
                                     } else {
                                         Log.v("알림", "task.isSuccessful()");
                                         FirebaseUser user = FireBaseClass.getInstance().getmAuth().getCurrentUser();
-                                        Toast.makeText(LoginActivity.this, "FireBase 아이디 생성이 완료 되었습니다", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "인증 성공 및 로그인 진행", Toast.LENGTH_SHORT).show();
 
 
                                         // 여기 아래에서 결과를 Intent에 넘겨주고

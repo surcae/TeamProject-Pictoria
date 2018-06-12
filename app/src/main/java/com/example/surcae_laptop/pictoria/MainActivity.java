@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -36,10 +37,7 @@ public class MainActivity extends AppCompatActivity {
     이 사용자를 이용해서 들고 볶고 썰고 할 수 있다.
      */
     //Context instance, setter, getter 생성
-    // 구글 검색용 엔진 ID
-    private final String googleSearchEngineID = "001547157015624447273:cgd3p_evf_o";
-    // API 이용하기 위한 키
-    private final String APIKey = "AIzaSyDr2FU22oAzmXgljzfpW5wn1khjWPOsjf4";
+
     private static Context context;
     private ImageSearchEngine imageSearchEngine;
     RecyclerView recyclerView;
@@ -111,64 +109,29 @@ public class MainActivity extends AppCompatActivity {
         materialSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                // 구글 검색용 엔진 ID
+                final String googleSearchEngineID = "001547157015624447273:cgd3p_evf_o";
+                // API 이용하기 위한 키
+                final String APIKey = "AIzaSyDr2FU22oAzmXgljzfpW5wn1khjWPOsjf4";
                 // filter recycler view when query submitted
-                final String searchString = "cat";
-                Log.d("Search Engine", "Searching for : " + searchString);
+                final String searchString = query;
+                Log.d("Search Engine", "Searching for :" + searchString);
 
                 // 서치 Submit시 키보드 숨김
                 InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                 final String searchStringNoSpaces = searchString.replace(" ", "+");
-                String urlString = "https://www.googleapis.com/customsearch/v1?q="+searchStringNoSpaces+"&key="+APIKey+"&cx="+googleSearchEngineID+"&filetype=png &searchType=image"+" &alt=json";
-                String temp = "https://www.googleapis.com/customsearch/v1?key=" + APIKey + "&amp;cx=" + googleSearchEngineID +
-                        "&amp;q=" + searchString + "&amp;searchType=" + "image" + "&amp;fileType=" + "png,jpg" + "&amp;alt=json";
+                String urlString = "https://www.googleapis.com/customsearch/v1?q="+searchStringNoSpaces+"&key="+APIKey+"&cx="+googleSearchEngineID+"&filetype=png&searchType=image&alt=json";
                 System.out.println(urlString);
-                String key = APIKey;
-                String qry = "cat";
-                String cx  = googleSearchEngineID;
-                String fileType = "png,jpg";
-                String searchType = "image";
-                URL url = null;
-                URL tempUrl = null;
-                try {
-                    tempUrl = new URL(urlString);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
 
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "+tempUrl.toString());
-
-                // 100 Query per days...
-
-                GResults results = null;
-                BufferedReader br = null;
-                HttpURLConnection conn = null;
-                try{
-                    conn = (HttpURLConnection) tempUrl.openConnection();
-                    conn.setRequestMethod("GET");
-                    conn.setRequestProperty("Accept", "application/json");
-                    br = new BufferedReader(new InputStreamReader( ( conn.getInputStream() ) ) );
-                    results = new Gson().fromJson(br, GResults.class);
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                results = new Gson().fromJson(br, GResults.class);
-                String path  = results.getLink(1);
-                System.out.println("여기를 봐라:" + path);
-
-                conn.disconnect();
-                /*
-                try {
-                    url = new URL(urlString); // URL 파싱
-                } catch (MalformedURLException e) {
-                    Log.e("MainActivity", "ERROR converting String to URL " + e.toString());
-                }
                 Log.d("MainActivity", "Url = "+  urlString);
-
                 imageSearchEngine = new ImageSearchEngine();
-                imageSearchEngine.execute(url); */
+                try{
+                    imageSearchEngine.execute(new URL(urlString));
+                } catch ( Exception e){
+                    e.printStackTrace();
+                }
                 return true;
             }
 
@@ -236,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
         bitmaps[7] = BitmapFactory.decodeResource(getResources(), R.drawable.sample_07);
         bitmaps[8] = BitmapFactory.decodeResource(getResources(), R.drawable.sample_00);
         bitmaps[9] = BitmapFactory.decodeResource(getResources(), R.drawable.sample_01);
+
         return bitmaps;
     }
 
