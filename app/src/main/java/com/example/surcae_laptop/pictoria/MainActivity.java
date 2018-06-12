@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // filter recycler view when query submitted
-                final String searchString = query;
+                final String searchString = "cat";
                 Log.d("Search Engine", "Searching for : " + searchString);
 
                 // 서치 Submit시 키보드 숨김
@@ -118,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
                 inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                 final String searchStringNoSpaces = searchString.replace(" ", "+");
-                String urlString = "https://www.googleapis.com/customsearch/v1?q=" + searchStringNoSpaces + "&key=" + APIKey + "&cx=" + googleSearchEngineID + "&alt=json";
+                String urlString = "https://www.googleapis.com/customsearch/v1?q="+searchStringNoSpaces+"&key="+APIKey+"&cx="+googleSearchEngineID+"&filetype=png &searchType=image"+" &alt=json";
                 String temp = "https://www.googleapis.com/customsearch/v1?key=" + APIKey + "&amp;cx=" + googleSearchEngineID +
                         "&amp;q=" + searchString + "&amp;searchType=" + "image" + "&amp;fileType=" + "png,jpg" + "&amp;alt=json";
-
+                System.out.println(urlString);
                 String key = APIKey;
                 String qry = "cat";
                 String cx  = googleSearchEngineID;
@@ -130,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 URL url = null;
                 URL tempUrl = null;
                 try {
-                    tempUrl = new URL("https://www.googleapis.com/customsearch/v1?key="+key+"&amp;cx="+cx+"&amp;q="+qry+
-                            "&amp;fileType="+fileType+"&amp;searchType="+searchType+"&amp;alt=json");
+                    tempUrl = new URL(urlString);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
