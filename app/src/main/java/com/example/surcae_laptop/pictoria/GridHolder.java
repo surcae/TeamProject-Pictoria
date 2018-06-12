@@ -16,6 +16,7 @@ public class GridHolder extends RecyclerView.ViewHolder {
         imageView=itemView.findViewById(R.id.s_image);
         textView=itemView.findViewById(R.id.t_caption);
 
+        imageView.getDrawable();
 
     }
 }

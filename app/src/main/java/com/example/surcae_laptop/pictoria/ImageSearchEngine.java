@@ -1,19 +1,13 @@
 package com.example.surcae_laptop.pictoria;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.services.customsearch.Customsearch;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static android.content.ContentValues.TAG;
@@ -33,84 +27,38 @@ import static android.content.ContentValues.TAG;
 이미지 갯수 혹은 구글 클라우드와 연동해서 이미지를 구글 클라우드에 전송하는 기능을 가지고 있다.
  */
 
-public class ImageSearchEngine extends AsyncTask<URL, Integer, String> {
-    Integer responseCode = null;
-    String responseMessage = "";
-    String result = "";
-    HttpURLConnection conn = null;
-    Customsearch customsearch= null;
+public class ImageSearchEngine extends AsyncTask<URL, Void, Boolean> {
+
     // Callback from Execute() of MainActivity.
     @Override
     protected void onPreExecute(){
 
     }
 
-    protected String doInBackground(URL... urls) {
-        HttpTransport httpTransport;
-        JsonFactory jsonFactory;
-        HttpRequestInitializer httpRequestInitializer;
+    protected Boolean doInBackground(URL... urls) {
+        StringBuffer buffer = null;
+        try {
+            InputStream is = urls[0].openConnection().getInputStream();
+            buffer = new StringBuffer();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
 
-        try{
-            //customsearch = new Customsearch(new NetHttpTransport(), new JsonFactory(), new HttpRequestInitializer()
-            {
-                
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null) {
+                buffer.append(line + "\n");
             }
-            //);
-        } catch (Exception e){
+        } catch ( Exception e) {
             e.printStackTrace();
         }
-
-        URL url = urls[0];
-        try {
-            conn = (HttpURLConnection) url.openConnection();
-        } catch (IOException e) {
-            Log.e(TAG, "Http connection ERROR " + e.toString());
-        }
+        String jsonString = buffer.toString();
 
         try {
-            responseCode = conn.getResponseCode();
-            responseMessage = conn.getResponseMessage();
-        } catch (IOException e) {
-            Log.e(TAG, "Http getting response code ERROR " + e.toString());
+            JSONObject jsonData = new JSONObject(jsonString);
+            JSONObject jsonObject = jsonData.getJSONArray("items").getJSONObject(0);
+            System.out.println(jsonObject.optString("link"));
+        } catch (JSONException jse){
+            jse.printStackTrace();
         }
-
-        Log.d(TAG, "Http response code =" + responseCode + " message=" + responseMessage);
-
-        try {
-            if (responseCode == 200) {
-
-                // response OK
-                BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-
-                while ((line = rd.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                rd.close();
-
-                conn.disconnect();
-
-                result = sb.toString();
-
-                Log.d(TAG, "result=" + result);
-
-                return result;
-
-            } else {
-
-                // response problem
-
-                String errorMsg = "Http ERROR response " + responseMessage + "\n" + "Make sure to replace in code your own Google API key and Search Engine ID";
-                Log.e(TAG, errorMsg);
-                result = errorMsg;
-                return result;
-
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Http Response ERROR " + e.toString());
-        }
-
-        return null;
+        return true;
     }
 }
+
