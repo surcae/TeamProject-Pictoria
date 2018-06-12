@@ -19,9 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import com.google.gson.*;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-
-import java.net.MalformedURLException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
@@ -116,8 +119,46 @@ public class MainActivity extends AppCompatActivity {
 
                 final String searchStringNoSpaces = searchString.replace(" ", "+");
                 String urlString = "https://www.googleapis.com/customsearch/v1?q=" + searchStringNoSpaces + "&key=" + APIKey + "&cx=" + googleSearchEngineID + "&alt=json";
-                URL url = null;
+                String temp = "https://www.googleapis.com/customsearch/v1?key=" + APIKey + "&amp;cx=" + googleSearchEngineID +
+                        "&amp;q=" + searchString + "&amp;searchType=" + "image" + "&amp;fileType=" + "png,jpg" + "&amp;alt=json";
 
+                String key = APIKey;
+                String qry = "cat";
+                String cx  = googleSearchEngineID;
+                String fileType = "png,jpg";
+                String searchType = "image";
+                URL url = null;
+                URL tempUrl = null;
+                try {
+                    tempUrl = new URL("https://www.googleapis.com/customsearch/v1?key="+key+"&amp;cx="+cx+"&amp;q="+qry+
+                            "&amp;fileType="+fileType+"&amp;searchType="+searchType+"&amp;alt=json");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "+tempUrl.toString());
+
+                // 100 Query per days...
+
+                GResults results = null;
+                BufferedReader br = null;
+                HttpURLConnection conn = null;
+                try{
+                    conn = (HttpURLConnection) tempUrl.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setRequestProperty("Accept", "application/json");
+                    br = new BufferedReader(new InputStreamReader( ( conn.getInputStream() ) ) );
+                    results = new Gson().fromJson(br, GResults.class);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                results = new Gson().fromJson(br, GResults.class);
+                String path  = results.getLink(1);
+                System.out.println("여기를 봐라:" + path);
+
+                conn.disconnect();
+                /*
                 try {
                     url = new URL(urlString); // URL 파싱
                 } catch (MalformedURLException e) {
@@ -126,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MainActivity", "Url = "+  urlString);
 
                 imageSearchEngine = new ImageSearchEngine();
-                imageSearchEngine.execute(url);
+                imageSearchEngine.execute(url); */
                 return true;
             }
 
